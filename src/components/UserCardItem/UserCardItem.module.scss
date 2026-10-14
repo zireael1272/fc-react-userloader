@@ -32,3 +32,12 @@
   font-weight: 600;
   letter-spacing: 2px;
 }
+
+.NameWithFlagContainer {
+  display: flex;
+  gap: 12px;
+}
+
+.CountryFlag {
+  max-width: 32px;
+}

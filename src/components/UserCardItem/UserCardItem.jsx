@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import styles from "./UserCardItem.module.scss";
 
-function UserCardItem({ name, email, imgSrc, city, age, gender, nation }) {
+function UserCardItem({ name, email, imgSrc, city, age, gender, nation, flag }) {
   const isFemale = gender === "female";
 
   const cardClasses = classNames(styles.Card, {
@@ -14,7 +14,11 @@ function UserCardItem({ name, email, imgSrc, city, age, gender, nation }) {
       <img src={imgSrc} alt={name}></img>
 
       <div className={styles.InfoContainer}>
-        <p className={styles.UserName}>{`${name} ${nation}`}</p>
+        <div className={styles.NameWithFlagContainer}>
+          <p className={styles.UserName}>{`${name}`}</p>
+          <img src={flag} alt={`${nation} flag`} className={styles.CountryFlag} />
+        </div>
+
         <p className={styles.Location}>{city}</p>
 
         <p className={styles.Age}>

@@ -63,6 +63,7 @@ class UsersLoader extends Component {
         age={user.dob.age}
         gender={user.gender}
         nation={user.nat}
+        flag={`https://flagcdn.com/w40/${user.nat.toLowerCase()}.png`}
       />
     );
   };
