@@ -1,13 +1,17 @@
+import classNames from "classnames";
 import styles from "./UserCardItem.module.scss";
 
 function UserCardItem({ name, email, imgSrc, city, age, gender, nation }) {
-  const genderColor = {
-    border: `2px solid ${gender === "female" ? "rgb(236, 0, 137)" : "blue"}`,
-  };
+  const isFemale = gender === "female";
+
+  const cardClasses = classNames(styles.Card, {
+    [styles.FemaleCard]: isFemale,
+    [styles.MaleCard]: !isFemale,
+  });
 
   return (
-    <li className={styles.Card} style={genderColor}>
-      <img src={imgSrc} alt={name} className={styles.Img}></img>
+    <li className={cardClasses}>
+      <img src={imgSrc} alt={name}></img>
 
       <div className={styles.InfoContainer}>
         <p className={styles.UserName}>{`${name} ${nation}`}</p>
