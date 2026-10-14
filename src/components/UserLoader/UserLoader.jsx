@@ -12,6 +12,7 @@ class UsersLoader extends Component {
       isFetching: false,
       error: null,
       currentPage: 1,
+      results: 8,
     };
   }
 
@@ -19,7 +20,7 @@ class UsersLoader extends Component {
     const { currentPage } = this.state;
 
     this.setState({ isFetching: true });
-    getUsers({ page: currentPage, results: 6 })
+    getUsers({ page: currentPage, results: this.state.results })
       .then((data) => this.setState({ users: data.results }))
       .catch((e) => this.setState({ error: e }))
       .finally(() => this.setState({ isFetching: false }));
@@ -31,9 +32,9 @@ class UsersLoader extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { currentPage } = this.state;
+    const { currentPage, results } = this.state;
 
-    if (currentPage !== prevState.currentPage) {
+    if (currentPage !== prevState.currentPage || results !== prevState.results) {
       this.loadUsers();
     }
   }
@@ -65,8 +66,15 @@ class UsersLoader extends Component {
     );
   };
 
+  handleResultsChange = (event) => {
+    this.setState({
+      results: Number(event.target.value),
+      currentPage: 1,
+    });
+  };
+
   render() {
-    const { users, isFetching, error } = this.state;
+    const { users, isFetching, error, results } = this.state;
 
     return (
       <>
@@ -74,6 +82,39 @@ class UsersLoader extends Component {
         {isFetching && <div>Loading. Please waite...</div>}
         {!error && !isFetching && (
           <div className={styles.CardsContainer}>
+            <div className={styles.CountCardsContainer}>
+              Count cards:
+              <label>
+                <input
+                  type="radio"
+                  name="countCards"
+                  value="4"
+                  checked={results === 4}
+                  onChange={this.handleResultsChange}
+                />
+                4
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="countCards"
+                  value="8"
+                  checked={results === 8}
+                  onChange={this.handleResultsChange}
+                />
+                8
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="countCards"
+                  value="10"
+                  checked={results === 10}
+                  onChange={this.handleResultsChange}
+                />
+                10
+              </label>
+            </div>
             <ul className={styles.UsersList}>{users.map(this.mapUser)}</ul>
           </div>
         )}
