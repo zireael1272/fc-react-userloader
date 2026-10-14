@@ -13,6 +13,7 @@ class UsersLoader extends Component {
       error: null,
       currentPage: 1,
       results: 8,
+      gender: "All",
     };
   }
 
@@ -73,8 +74,19 @@ class UsersLoader extends Component {
     });
   };
 
+  handleGenderChange = (event) => {
+    this.setState({
+      gender: event.target.value,
+    });
+  };
+
   render() {
-    const { users, isFetching, error, results } = this.state;
+    const { users, isFetching, error, results, gender } = this.state;
+
+    const filteredUsers =
+      gender === "All"
+        ? users
+        : users.filter((user) => user.gender.toLowerCase() === gender.toLowerCase());
 
     return (
       <>
@@ -115,7 +127,15 @@ class UsersLoader extends Component {
                 10
               </label>
             </div>
-            <ul className={styles.UsersList}>{users.map(this.mapUser)}</ul>
+            <div className={styles.ChoiceGenderContainer}>
+              Choice which gender show:
+              <select value={this.state.gender} onChange={this.handleGenderChange}>
+                <option value="All">All</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+              </select>
+            </div>
+            <ul className={styles.UsersList}>{filteredUsers.map(this.mapUser)}</ul>
           </div>
         )}
       </>
