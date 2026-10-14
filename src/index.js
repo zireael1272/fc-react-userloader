@@ -2,6 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./reset.css";
 import "./index.css";
+import UsersLoader from "./components/UserLoader/UserLoader";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<React.StrictMode></React.StrictMode>);
+root.render(
+  <React.StrictMode>
+    <UsersLoader />
+  </React.StrictMode>,
+);
